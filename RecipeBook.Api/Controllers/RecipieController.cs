@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Api.Data;
 using RecipieBook.Api.Models;
+using System.Text.Json;
 
 namespace RecipeBook.Api.Controllers
 {
@@ -38,20 +39,25 @@ namespace RecipeBook.Api.Controllers
 
         [HttpPost]
 
-        public JsonResult AddRecipies(AddRecipieModel addRecipieModel){
+        public ActionResult<Recipie> AddRecipies(Recipie addnewRecipie){
 
-            var newRecipie = new Recipie()
-            {
+            // var newRecipie = JsonSerializer.Serialize( new Recipie()
+            // {
                 
-                RecipieId = Guid.NewGuid(),
-                RecipieTitle = addRecipieModel.RecipieTitle,
-                RecipieDescription = addRecipieModel.RecipieDescription,
-                RecipiePhotoName = addRecipieModel.RecipiePhotoName
-            };
-            recipieDbContext.Recipies.Add(newRecipie);
+                
+            //     RecipieTitle = addnewRecipie.RecipieTitle,
+            //     RecipieDescription = addnewRecipie.RecipieDescription,
+            //     RecipiePhotoName = addnewRecipie.RecipiePhotoName
+            // }
+            // );
+            
+            // recipieDbContext.Recipies.Add(JsonSerializer.Deserialize<Recipie>(newRecipie));
+            recipieDbContext.Recipies.Add(addnewRecipie);
             recipieDbContext.SaveChanges();
 
-            return new JsonResult("Added Successfully");
+            // return new JsonResult("Added Successfully");
+            // return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+            return new JsonResult(addnewRecipie);
 
         }
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj": {}
+    "C:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj": {
+    "C:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj",
+        "projectUniqueName": "C:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj",
         "projectName": "RecipeBook.Api",
-        "projectPath": "c:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj",
+        "projectPath": "C:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\RecipeBook.Api.csproj",
         "packagesPath": "C:\\Users\\muhammed.irshad\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\obj\\",
+        "outputPath": "C:\\Users\\muhammed.irshad\\Desktop\\.NET\\RecipeBook\\RecipeBook.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

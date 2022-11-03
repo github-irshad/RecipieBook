@@ -3,3 +3,4 @@ Npgsql for Postgres: dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --
 
 dotnet ef database update
 
+dotnet ef migrations add "Initial Migration"
