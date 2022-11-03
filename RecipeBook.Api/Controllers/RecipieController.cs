@@ -36,6 +36,15 @@ namespace RecipeBook.Api.Controllers
 
             
         }
+        [HttpGet("{id}")]
+        public JsonResult GetRecipieById(Guid id){
+
+            var result = recipieDbContext.Recipies.Where(x=>x.RecipieId==id);
+
+            return new JsonResult(result);
+
+            
+        }
 
         [HttpPost]
 
@@ -59,6 +68,18 @@ namespace RecipeBook.Api.Controllers
             // return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
             return new JsonResult(addnewRecipie);
 
+        }
+
+        [HttpDelete("{id}")]
+        public JsonResult DeleteById(Guid id){
+            var _recipie = recipieDbContext.Recipies.Where(x=>x.RecipieId==id).FirstOrDefault();
+
+            recipieDbContext.Recipies.Remove(_recipie);
+            recipieDbContext.SaveChanges();
+
+            return new JsonResult("Deleted Successfully");
+
+            
         }
     }
 }
