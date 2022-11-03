@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RecipeBook.Api.Data;
-using RecipeBook.Api.Interfaces;
-using RecipeBook.Api.Models;
 using RecipieBook.Api.Models;
 
 namespace RecipeBook.Api.Controllers
 {
-    [Route("[controller]")]
+  [Route("[controller]")]
     public class RecipieController : Controller
     {
         
@@ -51,7 +43,7 @@ namespace RecipeBook.Api.Controllers
             var newRecipie = new Recipie()
             {
                 
-                
+                RecipieId = Guid.NewGuid(),
                 RecipieTitle = addRecipieModel.RecipieTitle,
                 RecipieDescription = addRecipieModel.RecipieDescription,
                 RecipiePhotoName = addRecipieModel.RecipiePhotoName
