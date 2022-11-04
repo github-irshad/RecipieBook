@@ -25,14 +25,14 @@ namespace RecipeBook.Api.Controllers
         
 
         [HttpGet]
-        public async Task<IActionResult> GetRecipies(){
+        public ActionResult<Recipie> GetRecipies(){
 
-              return Ok(recipieDbContext.Recipies.ToListAsync());
+              return new JsonResult(recipieDbContext.Recipies.ToList());
 
             }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecipieById(Guid id){
+        public ActionResult GetRecipieById(Guid id){
 
             var result =  recipieDbContext.Recipies.Where(x=>x.RecipieId==id);
 
@@ -43,7 +43,7 @@ namespace RecipeBook.Api.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> AddRecipies(AddRecipieModel addnewRecipie){
+        public ActionResult<Recipie> AddRecipies(AddRecipieModel addnewRecipie){
 
             var _addnewRecipie = new Recipie(){
                 RecipieId = Guid.NewGuid(),
@@ -51,8 +51,8 @@ namespace RecipeBook.Api.Controllers
                 RecipieDescription = addnewRecipie.RecipieDescription,
                 RecipiePhotoName = addnewRecipie.RecipiePhotoName
             };
-            await recipieDbContext.Recipies.AddAsync(_addnewRecipie);
-            await recipieDbContext.SaveChangesAsync();
+            recipieDbContext.Recipies.Add(_addnewRecipie);
+            recipieDbContext.SaveChanges();
 
             // return new JsonResult("Added Successfully");
             // return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
@@ -61,7 +61,7 @@ namespace RecipeBook.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public JsonResult DeleteById(Guid id){
+        public ActionResult DeleteById(Guid id){
             var _recipie = recipieDbContext.Recipies.Where(x=>x.RecipieId==id).FirstOrDefault();
 
             recipieDbContext.Recipies.Remove(_recipie);
@@ -73,15 +73,14 @@ namespace RecipeBook.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public JsonResult UpdateRecipie(Guid id,UpdateRecipie updateRecipie){
-            var _updatedRecipie = new Recipie(){
-                RecipieId = id,
-                RecipieTitle = updateRecipie.RecipieTitle,
-                RecipieDescription = updateRecipie.RecipieDescription,
-                RecipiePhotoName = updateRecipie.RecipiePhotoName
-            };
+        public ActionResult UpdateRecipie(Guid id,UpdateRecipie updateRecipie){
+            var _updatedRecipie = recipieDbContext.Recipies.Where(x=>x.RecipieId==id).FirstOrDefault();
 
-            recipieDbContext.Recipies.Remove(_updatedRecipie);
+            _updatedRecipie.RecipieTitle = updateRecipie.RecipieTitle;
+            _updatedRecipie.RecipieDescription = updateRecipie.RecipieDescription;
+            _updatedRecipie.RecipiePhotoName = updateRecipie.RecipiePhotoName;
+
+            
             recipieDbContext.SaveChanges();
 
             return new JsonResult(_updatedRecipie);
