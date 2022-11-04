@@ -38,3 +38,4 @@ C:\Users\muhammed.irshad\Desktop\.NET\RecipeBook\RecipeBook.Api\bin\Debug\net6.0
 C:\Users\muhammed.irshad\Desktop\.NET\RecipeBook\RecipeBook.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\muhammed.irshad\Desktop\.NET\RecipeBook\RecipeBook.Api\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\muhammed.irshad\Desktop\.NET\RecipeBook\RecipeBook.Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\muhammed.irshad\Desktop\.NET\RecipeBook\RecipeBook.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll

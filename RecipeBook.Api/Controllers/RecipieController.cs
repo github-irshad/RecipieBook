@@ -1,72 +1,62 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RecipeBook.Api.Data;
+using RecipeBook.Api.Models;
 using RecipieBook.Api.Models;
 using System.Text.Json;
 
 namespace RecipeBook.Api.Controllers
 {
+    [ApiController]
   [Route("[controller]")]
     public class RecipieController : Controller
     {
         
        private readonly RecipieDbContext recipieDbContext;
 
-    public RecipieController(RecipieDbContext recipieDbContext)
-    {
-      this.recipieDbContext = recipieDbContext;
-    }
-
-    public IActionResult Index()
+        public RecipieController(RecipieDbContext recipieDbContext)
         {
-            return View();
+        this.recipieDbContext = recipieDbContext;
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+   
+
+        
+        
 
         [HttpGet]
-        public JsonResult GetRecipies(){
+        public async Task<IActionResult> GetRecipies(){
 
-            var result = recipieDbContext.Recipies.ToList();
+              return Ok(recipieDbContext.Recipies.ToListAsync());
 
-            return new JsonResult(result);
+            }
 
-            
-        }
         [HttpGet("{id}")]
-        public JsonResult GetRecipieById(Guid id){
+        public async Task<IActionResult> GetRecipieById(Guid id){
 
-            var result = recipieDbContext.Recipies.Where(x=>x.RecipieId==id);
+            var result =  recipieDbContext.Recipies.Where(x=>x.RecipieId==id);
 
-            return new JsonResult(result);
+            return Ok(result);
 
             
         }
 
         [HttpPost]
 
-        public ActionResult<Recipie> AddRecipies(Recipie addnewRecipie){
+        public async Task<IActionResult> AddRecipies(AddRecipieModel addnewRecipie){
 
-            // var newRecipie = JsonSerializer.Serialize( new Recipie()
-            // {
-                
-                
-            //     RecipieTitle = addnewRecipie.RecipieTitle,
-            //     RecipieDescription = addnewRecipie.RecipieDescription,
-            //     RecipiePhotoName = addnewRecipie.RecipiePhotoName
-            // }
-            // );
-            
-            // recipieDbContext.Recipies.Add(JsonSerializer.Deserialize<Recipie>(newRecipie));
-            recipieDbContext.Recipies.Add(addnewRecipie);
-            recipieDbContext.SaveChanges();
+            var _addnewRecipie = new Recipie(){
+                RecipieId = Guid.NewGuid(),
+                RecipieTitle = addnewRecipie.RecipieTitle,
+                RecipieDescription = addnewRecipie.RecipieDescription,
+                RecipiePhotoName = addnewRecipie.RecipiePhotoName
+            };
+            await recipieDbContext.Recipies.AddAsync(_addnewRecipie);
+            await recipieDbContext.SaveChangesAsync();
 
             // return new JsonResult("Added Successfully");
             // return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
-            return new JsonResult(addnewRecipie);
+            return Ok(_addnewRecipie);
 
         }
 
@@ -78,6 +68,23 @@ namespace RecipeBook.Api.Controllers
             recipieDbContext.SaveChanges();
 
             return new JsonResult("Deleted Successfully");
+
+            
+        }
+
+        [HttpPut("{id}")]
+        public JsonResult UpdateRecipie(Guid id,UpdateRecipie updateRecipie){
+            var _updatedRecipie = new Recipie(){
+                RecipieId = id,
+                RecipieTitle = updateRecipie.RecipieTitle,
+                RecipieDescription = updateRecipie.RecipieDescription,
+                RecipiePhotoName = updateRecipie.RecipiePhotoName
+            };
+
+            recipieDbContext.Recipies.Remove(_updatedRecipie);
+            recipieDbContext.SaveChanges();
+
+            return new JsonResult(_updatedRecipie);
 
             
         }
